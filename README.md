@@ -18,7 +18,9 @@ users can be able to view different trending news on the application
 Typescript
 HTML
 CSS
-
+python
+powershell
+javascript
 ## License and copywrite
 
 Pamoja news
