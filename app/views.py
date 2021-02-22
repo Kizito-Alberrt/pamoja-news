@@ -3,13 +3,16 @@ from app import app
 from .request import get_news,get_news,search_news
 
 
-@app.route('/')
-def index():
+@app.route('/news/<int:id>')
+def news(id):
 
     '''
     View root page function that returns the index page and its data
     '''
+    news = get_news(id)
+    title = f'{news.title}'
 
+    return render_template('news.html', title =title, news =news)
     # Getting popular news
     popular_news = get_news('popular')
     print(popular_news)
