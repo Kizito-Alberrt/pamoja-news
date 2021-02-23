@@ -50,6 +50,7 @@ def process_results(news_list):
         urlToImage = news_item.get('urlToImage')
         publishedAt = news_item.get('publishedAt')
         
+        
 
         if urlToImage:
             news_object = News(id,name,title,description,urlToImage,publishedAt)
