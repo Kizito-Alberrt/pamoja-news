@@ -1,11 +1,17 @@
 from app import app
 import urllib.request,json
-from .models import news
+from .models import News
 
-News = news.News
-api_key = app.config['MOVIE_API_KEY']
+# Getting api key
+api_key = None
+# Getting the news base url
+base_url = None
 
-base_url = app.config["MOVIE_API_BASE_URL"]
+def configure_request(app):
+    global api_key,base_url
+    api_key = app.config['NEWS_API_KEY']
+    base_url = app.config['NEWS_API_BASE_URL']
+
 
 def get_news(category):
     '''
@@ -19,8 +25,8 @@ def get_news(category):
 
         news_results = None
 
-        if get_news_response['results']:
-            news_results_list = get_news_response['results']
+        if get_news_response['articles']:
+            news_results_list = get_news_response['articles']
             news_results = process_results(news_results_list)
 
     return news_results
@@ -37,15 +43,16 @@ def process_results(news_list):
     '''
     news_results = []
     for news_item in news_list:
-        id = news_item.get('id')
+        id = news_item.get('source').get('id')
+        name = news_item.get('source').get('name')
         title = news_item.get('original_title')
         description =news_item.get('description')
-        poster = news_item.get('poster_path')
-        Author = news_item.get('Author')
-        Content = news_item.get('Content')
+        urlToImage = news_item.get('urlToImage')
+        publishedAt = news_item.get('publishedAt')
+        
 
-        if poster:
-            news_object = News(id,title,description,poster,Author,Content)
+        if urlToImage:
+            news_object = News(id,name,title,description,urlToImage,publishedAt)
             news_results.append(news_object)
     
     return news_results
@@ -58,6 +65,7 @@ def get_news(id):
         news_details_response = json.loads(news_details_data)
 
         news_object = None
+        
         if news_details_response:
             id = news_details_response.get('id')
             title = news_details_response.get('original_title')
@@ -66,7 +74,7 @@ def get_news(id):
             vote_average = news_details_response.get('vote_average')
             vote_count = news_details_response.get('vote_count')
 
-            news_object = news(id,title,overview,poster,vote_average,vote_count)
+            news_object = News(id,title,overview,poster,vote_average,vote_count)
     
 
 def search_news(news_name):

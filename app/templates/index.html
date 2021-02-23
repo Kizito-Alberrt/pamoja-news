@@ -1,6 +1,17 @@
 {% extends 'base.html' %}
-{% import 'macros.html' as macro%}
-<!DOCTYPE html>
+<!-- {% import 'macros.html' as macro%} -->
+{% block content %}
+{% for news in news_list %}
+<div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 news-card">
+    <img src="{{ news.urlToImage }}" alt="..." class="img-responsive">
+    <li class="text-center">
+        <a href="/news/{{news.id}}">
+            {{ news.name}}</a>
+    </li>
+</div>
+{% endfor %}
+{% endblock %}
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,21 +22,21 @@
 <body>
     <body>
         {% block content %}
-        <!-- Popular News -->
+        Popular News
         <h3> Popular Newss</h3>
         <ul>
             {{ macro.displayNewsList(popular)}}
         </ul>
-        <!-- Upcoming News  -->
+        Upcoming News 
         <h3> Upcoming Newss </h3>
         <ul>
             {{ macro.displayNewsList(upcoming)}}
         </ul>
-        <!-- Now showing News -->
+        Now showing News
         <h3>Now Showing</h3>
         <ul>
             {{ macro.displayNewsList(now_showing)}}
         </ul>
         {% endblock %}
 </body>
-</html>
+</html> -->
