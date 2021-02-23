@@ -1,4 +1,4 @@
-from app import app
+
 import urllib.request,json
 from .models import News
 
@@ -20,7 +20,7 @@ def get_news(category):
     get_news_url = base_url.format(category,api_key)
 
     with urllib.request.urlopen(get_news_url) as url:
-        get_news_data = url.read()
+        get_news_data = url.read(category)
         get_news_response = json.loads(get_news_data)
 
         news_results = None
