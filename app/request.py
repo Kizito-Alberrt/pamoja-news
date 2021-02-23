@@ -3,9 +3,9 @@ import urllib.request,json
 from .models import News
 
 # Getting api key
-api_key = app.config['NEWS_API_KEY']
+api_key = None
 # Getting the news base url
-base_url = app.config["NEWS_API_BASE_URL"]
+base_url = None
 
 def configure_request(app):
     global api_key,base_url
