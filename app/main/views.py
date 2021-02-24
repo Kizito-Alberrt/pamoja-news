@@ -4,15 +4,15 @@ from ..request import get_news
 
 
 @main.route('/')
-def news(category):
+def news():
 
     '''
     View root page function that returns the index page and its data
     '''
-    name = get_news(category) 
-    title = f'{news.title}'
+    name = get_news('popular') 
+    title = 'pamoja'
 
-    return render_template('index.html', title =title, news =name)
+    return render_template('index.html', title = title, news =name)
     # Getting popular news
     # popular_news = get_news('popular')
     # print(popular_news)
