@@ -1,16 +1,29 @@
-from flask import render_template,request
+from flask import render_template,request,url_for
 from . import main
-from ..request import get_news
+from ..request import get_news_source, get_everything, get_news_headlines, tech_headlines
 
 
 @main.route('/')
-def news():
-
+def index():
     '''
     View root page function that returns the index page and its data
     '''
-    name = get_news(id) 
-    title = 'pamoja'
 
-    return render_template('index.html', title = title, news =name)
+    all_sources = get_news_source()
+    all_news = get_everything()
+    tech_stories = tech_headlines()
+    title = 'Pamoja news'
+
+    return render_template('index.html', sources = all_sources, others = all_news, tech = tech_stories, title = title)
+
+
+@main.route('/source/<source>')
+def news_headlines(source):
+    '''
+    Function pulls/gets the top and breakng news
+    '''
+
+    title = "Pamoja news"
+    news_headlines = get_news_headlines(source)
+    return render_template('articles.html', title = title, headlines = news_headlines)
    

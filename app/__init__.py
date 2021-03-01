@@ -28,5 +28,3 @@ def create_app(config_name):
 
     return app
 
-from .main import views
-from .main import error 
